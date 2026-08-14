@@ -1,0 +1,211 @@
+{% layout 'theme' %}
+
+<div style="
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  font-family: sans-serif;
+">
+  <div style="
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 420px;
+  ">
+    <h2 style="margin-bottom: 6px; font-size: 22px;">Sign in</h2>
+    <p style="color: #666; margin-bottom: 24px; font-size: 14px;">
+      Enter your registered B2B email to continue
+    </p>
+
+    <!-- Step 1: Email Input -->
+    <div id="step-email">
+      <input 
+        type="email" 
+        id="customer-email" 
+        placeholder="Email"
+        style="
+          width: 100%;
+          padding: 12px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          font-size: 15px;
+          margin-bottom: 12px;
+          box-sizing: border-box;
+        "
+      />
+      <div id="email-error" style="color: red; font-size: 13px; margin-bottom: 10px; display:none;">
+        ❌ You are not authorized. Please contact support.
+      </div>
+      <button 
+        onclick="checkB2BEmail()"
+        style="
+          width: 100%;
+          padding: 13px;
+          background: #2563eb;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 15px;
+          cursor: pointer;
+        "
+      >
+        Continue
+      </button>
+    </div>
+
+    <!-- Step 2: Password Input (shown after email verified) -->
+    <div id="step-password" style="display:none;">
+      <p id="verified-email-label" style="font-size:14px; color:#333; margin-bottom:14px;"></p>
+      <form method="post" action="/account/login">
+        <input type="hidden" name="form_type" value="customer_login" />
+        <input type="hidden" name="utf8" value="✓" />
+        <input type="hidden" id="hidden-email" name="customer[email]" value="" />
+        <input 
+          type="password" 
+          name="customer[password]"
+          placeholder="Password"
+          style="
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+          "
+        />
+        <button 
+          type="submit"
+          style="
+            width: 100%;
+            padding: 13px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+          "
+        >
+          Sign In
+        </button>
+      </form>
+      <button 
+        onclick="resetForm()"
+        style="
+          margin-top: 10px;
+          background: none;
+          border: none;
+          color: #2563eb;
+          cursor: pointer;
+          font-size: 13px;
+        "
+      >
+        ← Use different email
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const STOREFRONT_TOKEN = '42982961f0235362ec99878d87191dad';
+const STORE_DOMAIN = 'checkout-ui-development-store.myshopify.com';
+
+async function checkB2BEmail() {
+  const email = document.getElementById('customer-email').value.trim();
+  const errorDiv = document.getElementById('email-error');
+  errorDiv.style.display = 'none';
+
+  if (!email) {
+    errorDiv.innerText = '⚠️ Please enter your email.';
+    errorDiv.style.display = 'block';
+    return;
+  }
+
+  // Loading state
+  event.target.innerText = 'Checking...';
+  event.target.disabled = true;
+
+  try {
+    const response = await fetch(`https://${STORE_DOMAIN}/api/2024-01/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
+      },
+      body: JSON.stringify({
+        query: `{
+          customers(first: 1, query: "email:${email}") {
+            edges {
+              node {
+                id
+                email
+                tags
+              }
+            }
+          }
+        }`
+      })
+    });
+
+    const data = await response.json();
+    const customers = data?.data?.customers?.edges;
+
+    if (customers && customers.length > 0) {
+      const customer = customers[0].node;
+      const tags = customer.tags.map(t => t.toLowerCase());
+
+      if (tags.includes('b2b')) {
+        // ✅ B2B customer - show password step
+        document.getElementById('step-email').style.display = 'none';
+        document.getElementById('step-password').style.display = 'block';
+        document.getElementById('verified-email-label').innerText = `Email: ${email}`;
+        document.getElementById('hidden-email').value = email;
+      } else {
+        // Customer exist karta hai but B2B nahi
+        errorDiv.innerText = '❌ You are not authorized as a B2B customer.';
+        errorDiv.style.display = 'block';
+      }
+    } else {
+      // Customer exist hi nahi karta
+      errorDiv.innerText = '❌ No account found. Please contact support.';
+      errorDiv.style.display = 'block';
+    }
+  } catch (err) {
+    errorDiv.innerText = '⚠️ Something went wrong. Please try again.';
+    errorDiv.style.display = 'block';
+  }
+
+  // Reset button
+  const btn = document.querySelector('#step-email button');
+  btn.innerText = 'Continue';
+  btn.disabled = false;
+}
+
+function resetForm() {
+  document.getElementById('step-email').style.display = 'block';
+  document.getElementById('step-password').style.display = 'none';
+  document.getElementById('customer-email').value = '';
+  document.getElementById('email-error').style.display = 'none';
+}
+</script>
+```
+
+---
+
+## Yeh Code Kaise Kaam Karega:
+```
+User email daale
+      ↓
+Storefront API check kare
+      ↓
+B2B tag hai?
+  ✅ YES → Password field show ho
+  ❌ NO  → "Not authorized" error
+      ↓
+Login complete

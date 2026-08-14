@@ -1,0 +1,268 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "extended_warranty_warranty_checkbox_6qnd7E": {
+          "type": "shopify://apps/extended-warranty/blocks/warranty_checkbox/019fa838-cad0-776c-a037-e2db6360c6e7",
+          "settings": {
+            "title": "Add Extended Warranty",
+            "description": "Protect your purchase with extended coverage.",
+            "border_color": "#d0d0d0"
+          }
+        },
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "custom_liquid_GD6q9w": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"zipcode_global_section\"></div>"
+          }
+        },
+        "trybee_try_before_you_buy_tryblock_mX7Yj3": {
+          "type": "shopify://apps/trybee-try-before-you-buy/blocks/tryblock/0794c9aa-9855-45e0-9248-699a246faec4",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "wishlist_monk_wishlist_button_pdp_YQKbHm": {
+          "type": "shopify://apps/wishlist-monk/blocks/wishlist-button-pdp/019d1ed8-a943-701c-a4b5-0ef06be37367",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "extended_warranty_warranty_checkbox_6qnd7E",
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "custom_liquid_GD6q9w",
+        "trybee_try_before_you_buy_tryblock_mX7Yj3",
+        "buy_buttons",
+        "description",
+        "share",
+        "wishlist_monk_wishlist_button_pdp_YQKbHm"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "columns",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "1778821911e0bf51c6": {
+      "type": "apps",
+      "blocks": {
+        "bookx_smart_booking_CMyFrw": {
+          "type": "shopify://apps/bookx/blocks/smart-booking/865cd10f-9515-4d8b-8e41-efece9c83f71",
+          "settings": {
+            "bookeasy-display-type": "embed",
+            "bookeasy-app-id": "",
+            "bookeasy-popup-url": "",
+            "bookeasy-list-title": "",
+            "bookeasy-list-title-alignment": "center",
+            "bookeasy-book-now-text": "",
+            "bookeasy-view-full-details-text": "",
+            "bookeasy-currently-unavailable-text": ""
+          }
+        }
+      },
+      "block_order": [
+        "bookx_smart_booking_CMyFrw"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1779443647cdaa34e3": {
+      "type": "apps",
+      "blocks": {
+        "trybee_try_before_you_buy_tryblock_khahD4": {
+          "type": "shopify://apps/trybee-try-before-you-buy/blocks/tryblock/0794c9aa-9855-45e0-9248-699a246faec4",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "trybee_try_before_you_buy_tryblock_khahD4"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "17788219215140376b": {
+      "type": "apps",
+      "blocks": {
+        "bookx_app_blocks_mjHqCg": {
+          "type": "shopify://apps/bookx/blocks/app-blocks/865cd10f-9515-4d8b-8e41-efece9c83f71",
+          "settings": {
+            "bookeasy-app-id": "",
+            "bookeasy-app-title": "",
+            "bookeasy-app-subtitle": "",
+            "bookeasy-app-description": "",
+            "bookeasy-app-alignment": "flex-start"
+          }
+        }
+      },
+      "block_order": [
+        "bookx_app_blocks_mjHqCg"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1779338653c349ef65": {
+      "type": "apps",
+      "blocks": {
+        "rentalflow_app_rental_form_bBxqgX": {
+          "type": "shopify://apps/rentalflow-app/blocks/rental-form/019c15e1-5d2b-7011-88d7-1c1710d77743",
+          "settings": {
+            "heading": "Rental Information",
+            "show_heading": true
+          }
+        }
+      },
+      "block_order": [
+        "rentalflow_app_rental_form_bBxqgX"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "177944363827da5e54": {
+      "type": "apps",
+      "blocks": {
+        "trynow_try_before_you_buy_trynow_cta_button_wcBND4": {
+          "type": "shopify://apps/trynow-try-before-you-buy/blocks/trynow-cta-button/4c8ee11a-0e2d-4d12-800e-b312601aebc7",
+          "settings": {
+            "button_title": "Try Before You Buy",
+            "cta_button_custom_css": "",
+            "button_classes": "",
+            "button_margin": "0px 0px 5px 0px",
+            "description": "Try up to [cart_limit_suggested_cart_size] items at home for [trial_period] days",
+            "description_font_size": 12,
+            "description_color": "#000000",
+            "view_collection_text": "View TryNow collection",
+            "collection": "",
+            "add_to_cart_container_selector": "",
+            "gated_toggle_font_size": 12,
+            "gated_toggle_size": 0.7,
+            "autoposition": false
+          }
+        }
+      },
+      "block_order": [
+        "trynow_try_before_you_buy_trynow_cta_button_wcBND4"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "178367347927c84e89": {
+      "type": "apps",
+      "blocks": {
+        "doran_product_reviews_product_widget_et3Kkt": {
+          "type": "shopify://apps/doran-product-reviews/blocks/product-widget/ca90c3ee-bc39-4c25-90cd-fdf0519c6d11",
+          "settings": {
+            "topPadding": 36,
+            "bottomPadding": 36,
+            "is_hide_if_no_reviews": false,
+            "is_use_shopify_font": false,
+            "shopify_font": "sans_serif_n4"
+          }
+        }
+      },
+      "block_order": [
+        "doran_product_reviews_product_widget_et3Kkt"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products",
+    "1778821911e0bf51c6",
+    "1779443647cdaa34e3",
+    "17788219215140376b",
+    "1779338653c349ef65",
+    "177944363827da5e54",
+    "178367347927c84e89"
+  ]
+}

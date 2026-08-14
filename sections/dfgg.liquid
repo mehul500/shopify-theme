@@ -1,0 +1,556 @@
+{% comment %}
+  ============================================================
+  FEMMELLA — Homepage Slideshow Banner + GA4 Click Tracking
+  File: sections/femmella-banner-slider.liquid
+
+  Install karne ka tarika:
+  1. Shopify Admin → Online Store → Themes → Edit Code
+  2. Sections folder → "Add a new section" → Name: femmella-banner-slider
+  3. Yeh poora code paste karo → Save
+  4. Online Store → Customize → Homepage → Add section → "Femmella Banner Slider"
+  ============================================================
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Femmella Banner Slider",
+  "tag": "section",
+  "class": "femmella-slider-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto slide karna",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "unit": "sec",
+      "label": "Auto slide speed",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Arrow buttons dikhana",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Dot indicators dikhana",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner_slide",
+      "name": "Banner Slide",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "banner_name",
+          "label": "Banner ka naam (GA4 mein dikhega)",
+          "info": "Jaise: denimcore, bestsellers, new_arrivals — sirf lowercase aur underscore",
+          "placeholder": "denimcore"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop image (1440x600 recommended)"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image (750x900 recommended)"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "New In: DENIMCORE"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Sub-heading",
+          "default": "Lazer Prints & Relaxed Fits"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "white",
+          "options": [
+            { "value": "white", "label": "White" },
+            { "value": "dark",  "label": "Dark (navy)" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position",
+          "default": "left",
+          "options": [
+            { "value": "left",   "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right",  "label": "Right" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Femmella Banner Slider",
+      "blocks": [
+        {
+          "type": "banner_slide",
+          "settings": {
+            "banner_name": "denimcore",
+            "heading": "New In: DENIMCORE",
+            "subheading": "Lazer Prints & Relaxed Fits",
+            "button_text": "SHOP NOW",
+            "text_color": "white",
+            "text_position": "left"
+          }
+        },
+        {
+          "type": "banner_slide",
+          "settings": {
+            "banner_name": "bestsellers",
+            "heading": "Our Bestsellers",
+            "subheading": "Most Loved Styles",
+            "button_text": "EXPLORE NOW",
+            "text_color": "white",
+            "text_position": "left"
+          }
+        },
+        {
+          "type": "banner_slide",
+          "settings": {
+            "banner_name": "new_arrivals",
+            "heading": "New Arrivals",
+            "subheading": "Fresh Drops Every Week",
+            "button_text": "VIEW ALL",
+            "text_color": "white",
+            "text_position": "left"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% comment %} ===================== CSS ===================== {% endcomment %}
+<style>
+  .femmella-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #0d1b2e;
+  }
+
+  .femmella-slider__track {
+    position: relative;
+    width: 100%;
+    padding-bottom: 41.6%;
+    overflow: hidden;
+  }
+
+  .femmella-slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .femmella-slide.active {
+    opacity: 1;
+  }
+
+  .femmella-slide__image {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    pointer-events: none;
+  }
+
+  .femmella-slide__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.08) 60%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .femmella-slide__content {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 0 10% 5%;
+    z-index: 2;
+  }
+
+  .femmella-slide__content.position--center {
+    align-items: center;
+    text-align: center;
+    padding: 0 5% 10%;
+  }
+
+  .femmella-slide__content.position--right {
+    align-items: flex-end;
+    text-align: right;
+    padding: 0 5% 10% 0;
+  }
+
+  .femmella-slide__content.color--white .femmella-slide__heading,
+  .femmella-slide__content.color--white .femmella-slide__subheading,
+  .femmella-slide__content.color--white .femmella-slide__btn {
+    color: #ffffff;
+  }
+
+  .femmella-slide__content.color--dark .femmella-slide__heading,
+  .femmella-slide__content.color--dark .femmella-slide__subheading,
+  .femmella-slide__content.color--dark .femmella-slide__btn {
+    color: #0d1b2e;
+  }
+
+  .femmella-slide__heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.4rem, 3.5vw, 3rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin: 0 0 0.3em;
+    line-height: 1.1;
+  }
+
+  .femmella-slide__subheading {
+    font-size: clamp(0.8rem, 1.4vw, 1.1rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    margin: 0 0 1.2em;
+    opacity: 0.9;
+  }
+
+  .femmella-slide__btn {
+    display: inline-block;
+    font-size: clamp(0.65rem, 1vw, 0.85rem);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 3px;
+    transition: opacity 0.2s;
+  }
+
+  .femmella-slide__btn:hover { opacity: 0.6; }
+
+  /* Arrows */
+  .femmella-slider__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.4);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .femmella-slider__arrow:hover { background: rgba(255,255,255,0.35); }
+
+  .femmella-slider__arrow svg {
+    width: 18px; height: 18px;
+    stroke: #fff; fill: none;
+    stroke-width: 2;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  .femmella-slider__arrow--prev { left: 16px; }
+  .femmella-slider__arrow--next { right: 16px; }
+
+  /* Dots */
+  .femmella-slider__dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+  }
+
+  .femmella-slider__dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.25s, transform 0.25s;
+  }
+
+  .femmella-slider__dot.active {
+    background: #fff;
+    transform: scale(1.35);
+  }
+
+  /* Mobile */
+  @media (max-width: 749px) {
+    .femmella-slider__track    { padding-bottom: 120%; }
+    .femmella-slide__desktop-img { display: none; }
+    .femmella-slide__mobile-img  { display: block; }
+    .femmella-slide__content   { padding: 0 0 14% 6%; }
+    .femmella-slider__arrow    { width: 36px; height: 36px; }
+  }
+
+  @media (min-width: 750px) {
+    .femmella-slide__desktop-img { display: block; }
+    .femmella-slide__mobile-img  { display: none; }
+  }
+</style>
+
+
+{% comment %} ===================== HTML ===================== {% endcomment %}
+<div
+  class="femmella-slider"
+  id="FemmellaSlider-{{ section.id }}"
+>
+  <div class="femmella-slider__track">
+
+    {% for block in section.blocks %}
+      {% if block.type == 'banner_slide' %}
+        {% assign banner_index = forloop.index %}
+        {% assign banner_name  = block.settings.banner_name | default: 'banner' | handleize %}
+        {% assign btn_link     = block.settings.button_link | default: '#' %}
+
+        <a
+          href="{{ btn_link }}"
+          class="femmella-slide{% if forloop.first %} active{% endif %}"
+          data-banner-index="{{ forloop.index0 }}"
+          data-banner-id="banner_{{ banner_index }}"
+          data-banner-name="{{ banner_name }}"
+          data-banner-position="{{ banner_index }}"
+          {{ block.shopify_attributes }}
+          aria-label="{{ block.settings.heading | escape }}"
+        >
+
+          {% comment %} Desktop image {% endcomment %}
+          {% if block.settings.desktop_image %}
+            <img
+              src="{{ block.settings.desktop_image | image_url: width: 1440 }}"
+              srcset="
+                {{ block.settings.desktop_image | image_url: width: 750  }} 750w,
+                {{ block.settings.desktop_image | image_url: width: 1100 }} 1100w,
+                {{ block.settings.desktop_image | image_url: width: 1440 }} 1440w
+              "
+              sizes="100vw"
+              alt="{{ block.settings.heading | escape }}"
+              class="femmella-slide__image femmella-slide__desktop-img"
+              {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+              width="1440" height="600"
+            >
+          {% else %}
+            <div class="femmella-slide__image femmella-slide__desktop-img" style="background:#1a2b4a;"></div>
+          {% endif %}
+
+          {% comment %} Mobile image {% endcomment %}
+          {% if block.settings.mobile_image %}
+            <img
+              src="{{ block.settings.mobile_image | image_url: width: 750 }}"
+              alt="{{ block.settings.heading | escape }}"
+              class="femmella-slide__image femmella-slide__mobile-img"
+              {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+              width="750" height="900"
+            >
+          {% elsif block.settings.desktop_image %}
+            <img
+              src="{{ block.settings.desktop_image | image_url: width: 750 }}"
+              alt="{{ block.settings.heading | escape }}"
+              class="femmella-slide__image femmella-slide__mobile-img"
+              loading="lazy"
+              width="750" height="900"
+            >
+          {% endif %}
+
+          <div class="femmella-slide__overlay"></div>
+
+          <div class="femmella-slide__content position--{{ block.settings.text_position }} color--{{ block.settings.text_color }}">
+            {% if block.settings.heading != blank %}
+              <h2 class="femmella-slide__heading">{{ block.settings.heading }}</h2>
+            {% endif %}
+            {% if block.settings.subheading != blank %}
+              <p class="femmella-slide__subheading">{{ block.settings.subheading }}</p>
+            {% endif %}
+            {% if block.settings.button_text != blank %}
+              <span class="femmella-slide__btn">{{ block.settings.button_text }}</span>
+            {% endif %}
+          </div>
+
+        </a>
+      {% endif %}
+    {% endfor %}
+
+    {% if section.settings.show_arrows and section.blocks.size > 1 %}
+      <button class="femmella-slider__arrow femmella-slider__arrow--prev" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="femmella-slider__arrow femmella-slider__arrow--next" aria-label="Next slide">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    {% endif %}
+
+    {% if section.settings.show_dots and section.blocks.size > 1 %}
+      <div class="femmella-slider__dots" role="tablist">
+        {% for block in section.blocks %}
+          {% if block.type == 'banner_slide' %}
+            <button
+              class="femmella-slider__dot{% if forloop.first %} active{% endif %}"
+              data-dot="{{ forloop.index0 }}"
+              aria-label="Slide {{ forloop.index }}"
+            ></button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+
+{% comment %} ===================== JAVASCRIPT ===================== {% endcomment %}
+<script>
+$(document).ready(function () {
+
+  var AUTOPLAY     = {{ section.settings.autoplay | json }};
+  var SPEED_MS     = {{ section.settings.autoplay_speed | times: 1000 }};
+  var TOTAL_SLIDES = {{ section.blocks | where: 'type', 'banner_slide' | size }};
+  var SECTION_ID   = '{{ section.id }}';
+
+  var $slider       = $('#FemmellaSlider-' + SECTION_ID);
+  var $slides       = $slider.find('.femmella-slide');
+  var $dots         = $slider.find('.femmella-slider__dot');
+  var currentIndex  = 0;
+  var autoplayTimer = null;
+
+  // ---- Slide change ----
+  function goToSlide(index) {
+    $slides.eq(currentIndex).removeClass('active');
+    $dots.eq(currentIndex).removeClass('active');
+    currentIndex = (index + TOTAL_SLIDES) % TOTAL_SLIDES;
+    $slides.eq(currentIndex).addClass('active');
+    $dots.eq(currentIndex).addClass('active');
+  }
+
+  // ---- Autoplay ----
+  function startAutoplay() {
+    if (!AUTOPLAY || TOTAL_SLIDES <= 1) return;
+    stopAutoplay();
+    autoplayTimer = setInterval(function () {
+      goToSlide(currentIndex + 1);
+    }, SPEED_MS);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = null;
+  }
+
+  // ---- GA4 Banner Click — same style as ce_gallery_thumbnail_click ----
+  $(document).on('click', '#FemmellaSlider-' + SECTION_ID + ' .femmella-slide', function (e) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+
+    var bannerIndex    = $(this).data('banner-index');   // 0, 1, 2
+    var bannerId       = $(this).data('banner-id');      // "banner_1"
+    var bannerName     = $(this).data('banner-name');    // "denimcore"
+    var bannerPosition = $(this).data('banner-position');// 1, 2, 3
+
+    gtag('event', 'ce_banner_click', {
+      event_category : 'Homepage Slider',
+      event_action   : 'Banner Click',
+      event_label    : bannerName,       // GA4 mein konsa banner dikhega
+      value          : bannerIndex,      // 0-based index
+      banner_id      : bannerId,
+      banner_name    : bannerName,
+      banner_position: bannerPosition
+    });
+
+  });
+
+  // ---- Arrow clicks ----
+  $slider.on('click', '.femmella-slider__arrow--prev', function () {
+    stopAutoplay();
+    goToSlide(currentIndex - 1);
+    startAutoplay();
+  });
+
+  $slider.on('click', '.femmella-slider__arrow--next', function () {
+    stopAutoplay();
+    goToSlide(currentIndex + 1);
+    startAutoplay();
+  });
+
+  // ---- Dot clicks ----
+  $slider.on('click', '.femmella-slider__dot', function () {
+    stopAutoplay();
+    goToSlide(parseInt($(this).data('dot')));
+    startAutoplay();
+  });
+
+  // ---- Hover pe autoplay pause ----
+  $slider.on('mouseenter', stopAutoplay);
+  $slider.on('mouseleave', startAutoplay);
+
+  // ---- Touch swipe — mobile ----
+  var touchStartX = 0;
+
+  $slider[0].addEventListener('touchstart', function (e) {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoplay();
+  }, { passive: true });
+
+  $slider[0].addEventListener('touchend', function (e) {
+    var diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 50) {
+      goToSlide(diff > 0 ? currentIndex + 1 : currentIndex - 1);
+    }
+    startAutoplay();
+  }, { passive: true });
+
+  // ---- Start ----
+  startAutoplay();
+
+});
+</script>

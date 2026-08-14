@@ -1,0 +1,143 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider_cEqLJN": {
+      "type": "hero-slider",
+      "blocks": {
+        "slide_dy3TBM": {
+          "type": "slide",
+          "settings": {
+            "left_image": "shopify://shop_images/HA01R1203139-5.jpg",
+            "link_left": "",
+            "right_image": "shopify://shop_images/HA02R2104255-6.jpg",
+            "right_left": "",
+            "subheading": "ROOTED IN CRAFT",
+            "heading": "Every piece reflects the artistry of Indian traditions, crafted with care and designed for today.",
+            "button_label": "Shop Now",
+            "button_link": ""
+          }
+        },
+        "slide_WVeLfy": {
+          "type": "slide",
+          "settings": {
+            "left_image": "shopify://shop_images/HA03R1303153-5.jpg",
+            "link_left": "",
+            "right_image": "shopify://shop_images/HA07R2204325-1.jpg",
+            "right_left": "",
+            "subheading": "Timeless elegance",
+            "heading": "Where Tradition Meets Modern Style",
+            "button_label": "Shop Now",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_dy3TBM",
+        "slide_WVeLfy"
+      ],
+      "name": "Hero Video Banner",
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 8,
+        "title": "Featured products",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "dfgg_kM6X6R": {
+      "type": "dfgg",
+      "blocks": {
+        "banner_slide_WzGXYy": {
+          "type": "banner_slide",
+          "settings": {
+            "banner_name": "denimcore",
+            "heading": "New In: DENIMCORE",
+            "subheading": "Lazer Prints & Relaxed Fits",
+            "button_text": "SHOP NOW",
+            "button_link": "",
+            "text_color": "white",
+            "text_position": "left"
+          }
+        },
+        "banner_slide_AhenHq": {
+          "type": "banner_slide",
+          "settings": {
+            "banner_name": "bestsellers",
+            "heading": "Our Bestsellers",
+            "subheading": "Most Loved Styles",
+            "button_text": "EXPLORE NOW",
+            "button_link": "",
+            "text_color": "white",
+            "text_position": "left"
+          }
+        },
+        "banner_slide_r7meUK": {
+          "type": "banner_slide",
+          "settings": {
+            "banner_name": "new_arrivals",
+            "heading": "New Arrivals",
+            "subheading": "Fresh Drops Every Week",
+            "button_text": "VIEW ALL",
+            "button_link": "",
+            "text_color": "white",
+            "text_position": "left"
+          }
+        }
+      },
+      "block_order": [
+        "banner_slide_WzGXYy",
+        "banner_slide_AhenHq",
+        "banner_slide_r7meUK"
+      ],
+      "disabled": true,
+      "name": "Femmella Banner Slider",
+      "settings": {
+        "autoplay": true,
+        "autoplay_speed": 4,
+        "show_arrows": true,
+        "show_dots": true
+      }
+    },
+    "custom_slideshow_37E7PA": {
+      "type": "custom-slideshow",
+      "name": "Slideshow 111",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_slider_cEqLJN",
+    "featured_collection",
+    "dfgg_kM6X6R",
+    "custom_slideshow_37E7PA"
+  ]
+}
